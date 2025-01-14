@@ -40,4 +40,13 @@ public class BullCowProtocol implements Protocol {
         return response;
     }
 
+    Response getOkResponse(String responseData) {
+        return new Response(ResponseCode.OK, responseData);
+    }
+
+    Response logIn(String requestedData) {
+        service.logIn(requestedData);
+        return getOkResponse("");
+    }
+
 }

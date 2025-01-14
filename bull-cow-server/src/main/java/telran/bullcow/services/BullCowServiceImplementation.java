@@ -25,9 +25,7 @@ public class BullCowServiceImplementation implements BullCowService {
 
     @Override
     public void register(Gamer gamer) {
-        Gamer existingGamer = repository.getGamer(gamer.getUsername());
-        if(existingGamer != null) throw new GamerAlreadyExistsException(existingGamer.getUsername());
-        repository.createGamer(existingGamer);
+        repository.createGamer(gamer);
     }
 
     @Override

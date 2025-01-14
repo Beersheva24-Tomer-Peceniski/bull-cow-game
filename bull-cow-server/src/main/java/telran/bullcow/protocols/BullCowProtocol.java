@@ -8,6 +8,7 @@ import telran.net.ResponseCode;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import telran.bullcow.entities.Gamer;
 import telran.bullcow.services.*;
 
 public class BullCowProtocol implements Protocol {
@@ -40,12 +41,21 @@ public class BullCowProtocol implements Protocol {
         return response;
     }
 
-    Response getOkResponse(String responseData) {
+    public Response getOkResponse(String responseData) {
         return new Response(ResponseCode.OK, responseData);
     }
 
-    Response logIn(String requestedData) {
+    public Response logIn(String requestedData) {
         service.logIn(requestedData);
+        return getOkResponse("");
+    }
+
+    public Response register(String requestedData) {
+        Gamer gamer = Gamer.getGamerFromJSON(requestedData);
+        System.out.println("passed here");
+        System.out.println(gamer);
+        System.out.println("passed also here");
+        service.register(gamer);
         return getOkResponse("");
     }
 

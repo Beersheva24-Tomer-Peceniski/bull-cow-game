@@ -18,7 +18,8 @@ public class MenuItems {
         Item[] items = {
             Item.of("Log in", MenuItems::logIn),
             Item.of("Register", MenuItems::register),
-            Item.of("Start a Game", MenuItems::availableGames)
+            Item.of("Start a Game", MenuItems::availableGames),
+            Item.of("Join a game", MenuItems::getJoinableGames)
         };
         return items;
     }
@@ -40,6 +41,13 @@ public class MenuItems {
         Long[] games = service.getRunnableGames();
         String gamesString = String.join("\n", Arrays.stream(games).map(l -> String.valueOf(l)).toArray(String[]::new));
         String print = games.length == 0 ? "there is no available games" : gamesString;
+        io.writeLine(print);
+    }
+
+    static void getJoinableGames(InputOutput io) {
+        Long[] games = service.getJoinableGames();
+        String gamesString = String.join("\n", Arrays.stream(games).map(l -> String.valueOf(l)).toArray(String[]::new));
+        String print = games.length == 0 ? "there is no games to join" : gamesString;
         io.writeLine(print);
     }
 }

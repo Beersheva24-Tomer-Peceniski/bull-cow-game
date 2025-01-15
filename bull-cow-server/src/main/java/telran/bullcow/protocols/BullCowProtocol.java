@@ -67,4 +67,10 @@ public class BullCowProtocol implements Protocol {
         return getOkResponse(jsonArray.toString());
     }
 
+    public Response getJoinableGames(String requestedData) {
+        Long[] games = service.getJoinableGames();
+        JSONArray jsonArray = new JSONArray(games);
+        return getOkResponse(jsonArray.toString());
+    }
+
 }

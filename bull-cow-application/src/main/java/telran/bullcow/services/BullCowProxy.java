@@ -32,4 +32,11 @@ public class BullCowProxy implements BullCowService{
         return list.stream().map(o -> ((Number) o).longValue()).toArray(Long[]::new);
     }
 
+    @Override
+    public Long[] getJoinableGames() {
+        String responseData = netClient.sendAndReceive("getJoinableGames", "");
+        List<Object> list = new JSONArray(responseData).toList();
+        return list.stream().map(o -> ((Number) o).longValue()).toArray(Long[]::new);
+    }
+
 }

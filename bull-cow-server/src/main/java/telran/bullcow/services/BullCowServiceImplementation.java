@@ -28,7 +28,13 @@ public class BullCowServiceImplementation implements BullCowService {
     @Override
     public Long[] getRunnableGames() {
         if(loggedGamer == null) throw new RuntimeException("There was no log in");
-        return repository.getStartableGames(loggedGamer.getUsername()).toArray(Long[]::new) ;
+        return repository.getStartableGames(loggedGamer.getUsername()).toArray(Long[]::new);
+    }
+
+    @Override
+    public Long[] getJoinableGames() {
+        if(loggedGamer == null) throw new RuntimeException("There was no log in");
+        return repository.getJoinableGames(loggedGamer.getUsername()).toArray(Long[]::new);
     }
 
 }

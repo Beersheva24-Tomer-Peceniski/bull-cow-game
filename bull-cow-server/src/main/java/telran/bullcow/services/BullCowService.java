@@ -1,7 +1,5 @@
 package telran.bullcow.services;
 
-import java.util.List;
-
 import telran.bullcow.entities.Gamer;
 
 public interface BullCowService {
@@ -10,6 +8,6 @@ public interface BullCowService {
 
     void register(Gamer gamer);
 
-    List<Long> getRunnableGames(String username);
+    Long[] getRunnableGames();
 
 }

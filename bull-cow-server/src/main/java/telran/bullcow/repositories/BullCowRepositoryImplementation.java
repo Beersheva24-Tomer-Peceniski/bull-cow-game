@@ -66,7 +66,7 @@ public class BullCowRepositoryImplementation implements BullCowRepository {
         TypedQuery<Long> query = em.createQuery(
                 "select g.id from Game g where g.id in " +
                         "(select gg.game.id from GameGamer gg where gg.gamer.username = :username) " +
-                        "and g.isFinished = false",
+                        "and g.startDate is null",
                 Long.class);
         query.setParameter("username", username);
         return query.getResultList();

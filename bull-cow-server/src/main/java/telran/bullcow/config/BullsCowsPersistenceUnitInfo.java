@@ -120,7 +120,7 @@ public class BullsCowsPersistenceUnitInfo implements PersistenceUnitInfo {
 
     @Override
     public PersistenceUnitTransactionType getTransactionType() {
-        return PersistenceUnitTransactionType.RESOURCE_LOCAL;
+        return null;
     }
 
 }

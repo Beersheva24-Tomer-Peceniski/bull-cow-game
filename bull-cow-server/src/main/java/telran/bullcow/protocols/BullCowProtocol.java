@@ -8,6 +8,8 @@ import telran.net.ResponseCode;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import org.json.JSONArray;
+
 import telran.bullcow.entities.Gamer;
 import telran.bullcow.services.*;
 
@@ -57,6 +59,12 @@ public class BullCowProtocol implements Protocol {
         System.out.println("passed also here");
         service.register(gamer);
         return getOkResponse("");
+    }
+
+    public Response getRunnableGames(String requestedData) {
+        Long [] games = service.getRunnableGames();
+        JSONArray jsonArray = new JSONArray(games);
+        return getOkResponse(jsonArray.toString());
     }
 
 }

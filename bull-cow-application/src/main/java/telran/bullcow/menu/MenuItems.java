@@ -2,6 +2,7 @@ package telran.bullcow.menu;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 
 import telran.bullcow.entities.Gamer;
 import telran.bullcow.services.BullCowService;
@@ -16,7 +17,8 @@ public class MenuItems {
         MenuItems.service = service;
         Item[] items = {
             Item.of("Log in", MenuItems::logIn),
-            Item.of("Register", MenuItems::register)
+            Item.of("Register", MenuItems::register),
+            Item.of("Start a Game", MenuItems::availableGames)
         };
         return items;
     }
@@ -32,5 +34,12 @@ public class MenuItems {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate birthdate = LocalDate.parse(birthdateString, dtf);
         service.register(new Gamer(username, birthdate));
+    }
+
+    static void availableGames(InputOutput io) {
+        Long[] games = service.getRunnableGames();
+        String gamesString = String.join("\n", Arrays.stream(games).map(l -> String.valueOf(l)).toArray(String[]::new));
+        String print = games.length == 0 ? "there is no available games" : gamesString;
+        io.writeLine(print);
     }
 }

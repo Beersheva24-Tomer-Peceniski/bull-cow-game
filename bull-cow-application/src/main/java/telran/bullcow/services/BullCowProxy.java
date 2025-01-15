@@ -44,4 +44,8 @@ public class BullCowProxy implements BullCowService{
         return Long.parseLong(responseData);
     }
 
+    public void logOut() {
+        String responseData = netClient.sendAndReceive("logOut", "");
+    }
+
 }

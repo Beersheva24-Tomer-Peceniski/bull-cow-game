@@ -48,4 +48,9 @@ public class BullCowServiceImplementation implements BullCowService {
         return repository.createGame(game, gameGamer);
     }
 
+    @Override
+    public void logOut() {
+        loggedGamer = null;
+    }
+
 }

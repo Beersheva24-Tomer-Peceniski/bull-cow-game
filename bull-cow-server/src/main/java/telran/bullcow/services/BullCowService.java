@@ -14,4 +14,6 @@ public interface BullCowService {
 
     Long createGame();
 
+    void logOut();
+
 }

@@ -78,4 +78,9 @@ public class BullCowProtocol implements Protocol {
         return getOkResponse(String.valueOf(id));
     }
 
+    public Response logOut(String requestedData) {
+        service.logOut();
+        return getOkResponse("");
+    }
+
 }

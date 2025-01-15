@@ -13,25 +13,33 @@ public class GameMenu {
     public static Item[] getItems(BullCowService service) {
         GameMenu.service = service;
         Item[] items = {
-            Item.of("Start a Game", GameMenu::availableGames),
-            Item.of("Join a game", GameMenu::getJoinableGames),
-            Item.of("Create a new game", GameMenu::createGame),
-            Item.ofExit()
+                Item.of("Start a Game", GameMenu::availableGames),
+                Item.of("Join a game", GameMenu::getJoinableGames),
+                Item.of("Create a new game", GameMenu::createGame),
+                Item.ofExit()
         };
         return items;
     }
 
     static void availableGames(InputOutput io) {
         Long[] games = service.getRunnableGames();
-        String gamesString = String.join("\n", Arrays.stream(games).map(l -> String.valueOf(l)).toArray(String[]::new));
-        String print = games.length == 0 ? "there is no available games" : gamesString;
+        StringBuilder sb = new StringBuilder().append("These are the available Games that you can start:")
+                .append("\n-> Game ")
+                .append(String.join("\n-> Game ", Arrays.stream(games).map(l -> String.valueOf(l)).toArray(String[]::new)));
+        String gamesString = sb.toString();
+        String noGames = "There is no available games, please create a new game";
+        String print = games.length == 0 ? noGames : gamesString;
         io.writeLine(print);
     }
 
     static void getJoinableGames(InputOutput io) {
         Long[] games = service.getJoinableGames();
-        String gamesString = String.join("\n", Arrays.stream(games).map(l -> String.valueOf(l)).toArray(String[]::new));
-        String print = games.length == 0 ? "there is no games to join" : gamesString;
+        StringBuilder sb = new StringBuilder().append("These are the available Games that you can join:")
+                .append("\n-> Game ")
+                .append(String.join("\n-> Game ", Arrays.stream(games).map(l -> String.valueOf(l)).toArray(String[]::new)));
+        String gamesString = sb.toString();
+        String noGames = "There is no games to join, please create a new game";
+        String print = games.length == 0 ? noGames : gamesString;
         io.writeLine(print);
     }
 
@@ -39,5 +47,5 @@ public class GameMenu {
         Long id = service.createGame();
         io.writeLine("");
         io.writeLine(String.format("You have created the game with id: %d", id));
-    } 
+    }
 }

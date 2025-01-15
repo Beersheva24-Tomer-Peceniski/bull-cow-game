@@ -53,4 +53,9 @@ public class BullCowServiceImplementation implements BullCowService {
         loggedGamer = null;
     }
 
+    @Override
+    public Gamer getGamer(String username) {
+        return repository.getGamer(username);
+    }
+
 }

@@ -83,4 +83,10 @@ public class BullCowProtocol implements Protocol {
         return getOkResponse("");
     }
 
+    public Response getGamer(String requestedData) {
+        Gamer gamer = service.getGamer(requestedData);
+        String res = gamer == null ? "" : gamer.toString();
+        return getOkResponse(res);
+    }
+
 }

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import telran.bullcow.entities.Gamer;
+import telran.bullcow.exceptions.GamerAlreadyExistsException;
 import telran.bullcow.services.BullCowService;
 import telran.view.InputOutput;
 import telran.view.Item;
@@ -18,7 +19,7 @@ public class LoginMenu {
         LoginMenu.service = service;
         LoginMenu.io = io;
         Item[] items = {
-                Item.of("Register", LoginMenu::register),
+                Item.of("Register and Log In", LoginMenu::register),
                 Item.of("Log in", LoginMenu::logIn),
                 Item.ofExit()
         };
@@ -27,10 +28,15 @@ public class LoginMenu {
 
     static void register(InputOutput io) {
         String username = io.readString("Insert the username to be created");
+        Gamer existingGamer = service.getGamer(username);
+        if(existingGamer != null) throw new GamerAlreadyExistsException(username);
         String birthdateString = io.readString("Insert the birthdate in the pattern yyyy-MM-dd");
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate birthdate = LocalDate.parse(birthdateString, dtf);
-        service.register(new Gamer(username, birthdate));
+        Gamer gamer = new Gamer(username, birthdate);
+        service.register(gamer);
+        service.logIn(gamer.getUsername());
+        gameMenu(gamer.getUsername());
     }
 
     static void logIn(InputOutput io) {

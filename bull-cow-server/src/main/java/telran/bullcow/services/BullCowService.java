@@ -16,4 +16,6 @@ public interface BullCowService {
 
     void logOut();
 
+    Gamer getGamer(String username);
+
 }

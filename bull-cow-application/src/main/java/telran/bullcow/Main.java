@@ -1,9 +1,5 @@
 package telran.bullcow;
 
-import java.io.Closeable;
-import java.io.IOException;
-import java.util.Arrays;
-
 import telran.bullcow.menus.LoginMenu;
 import telran.bullcow.services.BullCowProxy;
 import telran.bullcow.services.BullCowService;

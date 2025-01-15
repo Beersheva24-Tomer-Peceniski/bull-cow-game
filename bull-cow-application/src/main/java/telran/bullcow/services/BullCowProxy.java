@@ -45,7 +45,13 @@ public class BullCowProxy implements BullCowService{
     }
 
     public void logOut() {
-        String responseData = netClient.sendAndReceive("logOut", "");
+        netClient.sendAndReceive("logOut", "");
+    }
+
+    public Gamer getGamer(String username) {
+        String responseData = netClient.sendAndReceive("getGamer", username);
+        Gamer gamer = responseData.isEmpty() ? null : Gamer.getGamerFromJSON(responseData);
+        return gamer;
     }
 
 }

@@ -1,10 +1,7 @@
 package telran.bullcow.menus;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
-import telran.bullcow.entities.Gamer;
 import telran.bullcow.services.BullCowService;
 import telran.view.InputOutput;
 import telran.view.Item;

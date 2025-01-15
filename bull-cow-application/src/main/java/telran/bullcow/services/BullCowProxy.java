@@ -39,4 +39,9 @@ public class BullCowProxy implements BullCowService{
         return list.stream().map(o -> ((Number) o).longValue()).toArray(Long[]::new);
     }
 
+    public Long createGame() {
+        String responseData = netClient.sendAndReceive("createGame", "");
+        return Long.parseLong(responseData);
+    }
+
 }

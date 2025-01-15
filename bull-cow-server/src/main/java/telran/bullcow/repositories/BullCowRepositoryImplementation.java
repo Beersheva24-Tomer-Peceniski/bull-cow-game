@@ -34,13 +34,13 @@ public class BullCowRepositoryImplementation implements BullCowRepository {
     }
 
     @Override
-    public Long createGame() {
+    public Long createGame(Game game, GameGamer gameGamer) {
         Long id;
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
         try {
-            Game game = new Game();
             em.persist(game);
+            em.persist(gameGamer);
             id = game.getId();
             transaction.commit();
         } catch (Exception e) {

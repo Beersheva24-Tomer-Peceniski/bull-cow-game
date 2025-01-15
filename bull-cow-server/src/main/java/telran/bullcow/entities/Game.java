@@ -17,13 +17,11 @@ public class Game {
     String sequence;
 
 
-    public Game() {}
-
-    public Game(String sequence) {
-        this.sequence = sequence;
+    public Game() {
+        setSequence();
     }
 
-    public String setSequence() {
+    public void setSequence() {
         HashSet<String> sequenceSet = new HashSet<>();
         Random random = new Random();
         int i = 0;
@@ -34,7 +32,7 @@ public class Game {
                 i++;
             }
         }
-        return String.join("", sequenceSet);
+        sequence = String.join("", sequenceSet);
     }
 
     public Long getId() {

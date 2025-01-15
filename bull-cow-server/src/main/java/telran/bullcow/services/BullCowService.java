@@ -12,4 +12,6 @@ public interface BullCowService {
 
     Long[] getJoinableGames();
 
+    Long createGame();
+
 }

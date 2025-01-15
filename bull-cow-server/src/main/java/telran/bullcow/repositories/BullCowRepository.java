@@ -8,7 +8,7 @@ import telran.bullcow.entities.Gamer;
 
 public interface BullCowRepository {
 
-    Long createGame();
+    Long createGame(Game game, GameGamer gameGamer);
 
     Game getGame(Long id);
 

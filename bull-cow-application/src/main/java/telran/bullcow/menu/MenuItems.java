@@ -19,7 +19,8 @@ public class MenuItems {
             Item.of("Log in", MenuItems::logIn),
             Item.of("Register", MenuItems::register),
             Item.of("Start a Game", MenuItems::availableGames),
-            Item.of("Join a game", MenuItems::getJoinableGames)
+            Item.of("Join a game", MenuItems::getJoinableGames),
+            Item.of("Start a game", MenuItems::createGame)
         };
         return items;
     }
@@ -50,4 +51,10 @@ public class MenuItems {
         String print = games.length == 0 ? "there is no games to join" : gamesString;
         io.writeLine(print);
     }
+
+    static void createGame(InputOutput io) {
+        Long id = service.createGame();
+        io.writeLine("");
+        io.writeLine(String.format("You have created the game with id: %d", id));
+    } 
 }

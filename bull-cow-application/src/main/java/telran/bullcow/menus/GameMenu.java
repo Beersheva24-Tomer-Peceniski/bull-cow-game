@@ -16,15 +16,16 @@ public class GameMenu {
         GameMenu.service = service;
 
         Item[] items = {
-                Item.of("Start a Game", GameMenu::startGame),
-                Item.of("Join a game", GameMenu::getJoinableGames),
                 Item.of("Create a new game", GameMenu::createGame),
+                Item.of("Join a game", GameMenu::printJoinableGames),
+                Item.of("Start a Game and make a move", GameMenu::startGame),
+                Item.of("Make a move in a started game", GameMenu::makeMove),
                 Item.ofExit()
         };
         return items;
     }
 
-    static void printAvailableGames(InputOutput io) {
+    static void printRunnableGames(InputOutput io) {
         Long[] games = service.getRunnableGames();
         StringBuilder sb = new StringBuilder().append("These are the available Games that you can start:")
                 .append("\n-> Game ")
@@ -36,7 +37,7 @@ public class GameMenu {
         io.writeLine(print);
     }
 
-    static void getJoinableGames(InputOutput io) {
+    static void printJoinableGames(InputOutput io) {
         Long[] games = service.getJoinableGames();
         StringBuilder sb = new StringBuilder().append("These are the available Games that you can join:")
                 .append("\n-> Game ")
@@ -55,7 +56,7 @@ public class GameMenu {
     }
 
     static void startGame(InputOutput io) {
-        printAvailableGames(io);
+        printRunnableGames(io);
         Long[] games = service.getRunnableGames();
         Long gameId = io.readLong("\nPlease insert the game ID of the game you want to start",
                 "Please insert a number");
@@ -64,10 +65,35 @@ public class GameMenu {
             throw new GameNotFoundException(gameId);
         }
         service.startGame(game);
-        makeMove(io);
+        move(io);
     }
 
-    private static void makeMove(InputOutput io) {
+    static void printStartedGames(InputOutput io) {
+        Long[] games = service.getStartedGames();
+        StringBuilder sb = new StringBuilder().append("These are the available Games that you can make a move:")
+                .append("\n-> Game ")
+                .append(String.join("\n-> Game ",
+                        Arrays.stream(games).map(l -> String.valueOf(l)).toArray(String[]::new)));
+        String gamesString = sb.toString();
+        String noGames = "There is no available games, please create a new game";
+        String print = games.length == 0 ? noGames : gamesString;
+        io.writeLine(print);
+    }
+
+    static void makeMove(InputOutput io) {
+        printStartedGames(io);
+        Long[] games = service.getStartedGames();
+        Long gameId = io.readLong("\nPlease insert the game ID of the game you want to make a move",
+                "Please insert a number");
+        Game game = service.getGame(gameId);
+        if ((game == null) || !(Arrays.asList(games).contains(gameId))) {
+            throw new GameNotFoundException(gameId);
+        }
+        service.logGame(game.getId());
+        move(io);
+    }
+
+    private static void move(InputOutput io) {
         String sequence = io.readString("Please insert your sequence");
         service.makeMove(sequence);
     }

@@ -73,6 +73,18 @@ public class BullCowRepositoryImplementation implements BullCowRepository {
     }
 
     @Override
+    public List<Long> getStartedGames(String username) {
+        TypedQuery<Long> query = em.createQuery(
+                "select g.id from Game g where g.id in " +
+                        "(select gg.game.id from GameGamer gg where gg.gamer.username = :username) " +
+                        "and g.startDate is not null " +
+                        "and g.isFinished = false",
+                Long.class);
+        query.setParameter("username", username);
+        return query.getResultList();
+    }
+
+    @Override
     public void setGameStartDate(Long gameId) {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();

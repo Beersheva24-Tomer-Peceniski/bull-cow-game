@@ -35,6 +35,13 @@ public class BullCowProxy implements BullCowService{
     }
 
     @Override
+    public Long[] getStartedGames() {
+        String responseData = netClient.sendAndReceive("getStartedGames", "");
+        List<Object> list = new JSONArray(responseData).toList();
+        return list.stream().map(o -> ((Number) o).longValue()).toArray(Long[]::new);
+    }
+
+    @Override
     public Long[] getJoinableGames() {
         String responseData = netClient.sendAndReceive("getJoinableGames", "");
         List<Object> list = new JSONArray(responseData).toList();
@@ -62,6 +69,7 @@ public class BullCowProxy implements BullCowService{
         return game;
     }
 
+    @Override
     public void startGame(Game game) {
         netClient.sendAndReceive("startGame", game.toString());
     }
@@ -70,6 +78,11 @@ public class BullCowProxy implements BullCowService{
     public Move makeMove(String sequence) {
         String moveString = netClient.sendAndReceive("makeMove", sequence);
         return Move.getMoveFromJSON(moveString);
+    }
+
+    @Override 
+    public void logGame(Long id) {
+        netClient.sendAndReceive("logGame", String.valueOf(id));
     }
 
 }

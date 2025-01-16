@@ -8,11 +8,15 @@ public interface BullCowService {
 
     void logIn(String username);
 
+    void logGame(Long id);
+
     void register(Gamer gamer);
 
     Long[] getRunnableGames();
 
     Long[] getJoinableGames();
+
+    Long[] getStartedGames();
 
     Long createGame();
 

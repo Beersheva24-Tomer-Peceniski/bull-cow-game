@@ -17,6 +17,8 @@ public interface BullCowRepository {
 
     List<Long> getStartableGames(String username);
 
+    List<Long> getStartedGames(String username);
+
     void setGameStartDate(Long gameId);
 
     void setFinishGame(Long gameId);

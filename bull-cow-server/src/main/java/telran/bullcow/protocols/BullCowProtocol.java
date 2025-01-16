@@ -69,6 +69,12 @@ public class BullCowProtocol implements Protocol {
         return getOkResponse(jsonArray.toString());
     }
 
+    public Response getStartedGames(String requestedData) {
+        Long [] games = service.getStartedGames();
+        JSONArray jsonArray = new JSONArray(games);
+        return getOkResponse(jsonArray.toString());
+    }
+
     public Response getJoinableGames(String requestedData) {
         Long[] games = service.getJoinableGames();
         JSONArray jsonArray = new JSONArray(games);
@@ -106,6 +112,11 @@ public class BullCowProtocol implements Protocol {
     public Response makeMove(String requestedData) {
         Move move = service.makeMove(requestedData);
         return getOkResponse(move.toString());
+    }
+
+    public Response logGame(String requestedData) {
+        service.logGame(Long.parseLong(requestedData));
+        return getOkResponse("");
     }
 
 }

@@ -1,6 +1,8 @@
 package telran.bullcow.services;
 
+import telran.bullcow.entities.Game;
 import telran.bullcow.entities.Gamer;
+import telran.bullcow.entities.Move;
 
 public interface BullCowService {
 
@@ -17,5 +19,11 @@ public interface BullCowService {
     void logOut();
 
     Gamer getGamer(String username);
+
+    Game getGame(Long id);
+
+    void startGame(Game game);
+
+    Move makeMove(String sequence);
 
 }

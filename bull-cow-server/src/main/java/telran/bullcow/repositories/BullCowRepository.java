@@ -5,6 +5,7 @@ import java.util.List;
 import telran.bullcow.entities.Game;
 import telran.bullcow.entities.GameGamer;
 import telran.bullcow.entities.Gamer;
+import telran.bullcow.entities.Move;
 
 public interface BullCowRepository {
 
@@ -28,6 +29,6 @@ public interface BullCowRepository {
 
     GameGamer getGameGamer(String gamerUsername, Long gameId);
 
-    Long makeMove(String gamerUsername, Long gameId, String sequence);
+    Move makeMove(String gamerUsername, Long gameId, String sequence);
 
 }

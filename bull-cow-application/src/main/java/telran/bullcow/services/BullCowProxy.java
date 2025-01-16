@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.json.JSONArray;
 
+import telran.bullcow.entities.Game;
 import telran.bullcow.entities.Gamer;
+import telran.bullcow.entities.Move;
 import telran.net.NetworkClient;
 
 public class BullCowProxy implements BullCowService{
@@ -52,6 +54,22 @@ public class BullCowProxy implements BullCowService{
         String responseData = netClient.sendAndReceive("getGamer", username);
         Gamer gamer = responseData.isEmpty() ? null : Gamer.getGamerFromJSON(responseData);
         return gamer;
+    }
+
+    public Game getGame(Long id) {
+        String responseData = netClient.sendAndReceive("getGame", String.valueOf(id));
+        Game game = responseData.isEmpty() ? null : Game.getGameFromJSON(responseData);
+        return game;
+    }
+
+    public void startGame(Game game) {
+        netClient.sendAndReceive("startGame", game.toString());
+    }
+
+    @Override
+    public Move makeMove(String sequence) {
+        String moveString = netClient.sendAndReceive("makeMove", sequence);
+        return Move.getMoveFromJSON(moveString);
     }
 
 }

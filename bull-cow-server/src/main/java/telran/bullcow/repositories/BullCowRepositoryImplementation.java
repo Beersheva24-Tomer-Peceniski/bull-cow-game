@@ -145,7 +145,7 @@ public class BullCowRepositoryImplementation implements BullCowRepository {
     @Override
     public GameGamer getGameGamer(String gamerUsername, Long gameId) {
         TypedQuery<GameGamer> query = em.createQuery("select gg from GameGamer gg " +
-                "where gg.gamerUsername = :gamerUsername and gg.gameId = :gameId",
+                "where gg.gamer.username = :gamerUsername and gg.game.id = :gameId",
                 GameGamer.class);
         query.setParameter("gamerUsername", gamerUsername);
         query.setParameter("gameId", gameId);
@@ -153,7 +153,7 @@ public class BullCowRepositoryImplementation implements BullCowRepository {
     }
 
     @Override
-    public Long makeMove(String gamerUsername, Long gameId, String sequence) {
+    public Move makeMove(String gamerUsername, Long gameId, String sequence) {
         Move move;
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
@@ -168,6 +168,6 @@ public class BullCowRepositoryImplementation implements BullCowRepository {
             transaction.rollback();
             throw e;
         }
-        return move.getId();
+        return move;
     }
 }

@@ -3,6 +3,7 @@ package telran.bullcow.services;
 import telran.bullcow.entities.Game;
 import telran.bullcow.entities.GameGamer;
 import telran.bullcow.entities.Gamer;
+import telran.bullcow.entities.Move;
 import telran.bullcow.exceptions.GamerNotFoundException;
 import telran.bullcow.exceptions.NoLoginException;
 import telran.bullcow.repositories.BullCowRepository;
@@ -11,6 +12,7 @@ public class BullCowServiceImplementation implements BullCowService {
 
     BullCowRepository repository;
     Gamer loggedGamer;
+    Game loggedGame;
 
     public BullCowServiceImplementation(BullCowRepository repository) {
         this.repository = repository;
@@ -56,6 +58,21 @@ public class BullCowServiceImplementation implements BullCowService {
     @Override
     public Gamer getGamer(String username) {
         return repository.getGamer(username);
+    }
+
+    @Override
+    public Game getGame(Long id) {
+        return repository.getGame(id);
+    }
+
+    @Override
+    public void startGame(Game game) {
+        loggedGame = game;
+        repository.setGameStartDate(game.getId());
+    }
+
+    public Move makeMove(String sequence) {
+        return repository.makeMove(loggedGamer.getUsername(), loggedGame.getId(), sequence);
     }
 
 }

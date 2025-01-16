@@ -10,7 +10,9 @@ import java.lang.reflect.Method;
 
 import org.json.JSONArray;
 
+import telran.bullcow.entities.Game;
 import telran.bullcow.entities.Gamer;
+import telran.bullcow.entities.Move;
 import telran.bullcow.services.*;
 
 public class BullCowProtocol implements Protocol {
@@ -87,6 +89,23 @@ public class BullCowProtocol implements Protocol {
         Gamer gamer = service.getGamer(requestedData);
         String res = gamer == null ? "" : gamer.toString();
         return getOkResponse(res);
+    }
+
+    public Response getGame(String requestedData) {
+        Game game = service.getGame(Long.parseLong(requestedData));
+        String res = game == null ? "" : game.toString();
+        return getOkResponse(res);
+    }
+
+    public Response startGame(String requestedData) {
+        Game game = Game.getGameFromJSON(requestedData);
+        service.startGame(game);
+        return getOkResponse("");
+    }
+
+    public Response makeMove(String requestedData) {
+        Move move = service.makeMove(requestedData);
+        return getOkResponse(move.toString());
     }
 
 }

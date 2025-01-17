@@ -161,7 +161,11 @@ public class BullCowRepositoryImplementation implements BullCowRepository {
                 GameGamer.class);
         query.setParameter("gamerUsername", gamerUsername);
         query.setParameter("gameId", gameId);
-        return query.getSingleResult();
+        try {
+            return query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
     @Override

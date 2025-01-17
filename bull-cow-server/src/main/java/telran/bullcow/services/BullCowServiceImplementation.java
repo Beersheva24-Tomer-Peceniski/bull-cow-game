@@ -89,4 +89,10 @@ public class BullCowServiceImplementation implements BullCowService {
         if(existingGame == null) throw new GameNotFoundException(id);
         loggedGame = existingGame;
     }
+
+    @Override
+    public void joinGame(Game game) {
+        logGame(game.getId());
+        repository.joinGame(loggedGamer.getUsername(), game.getId());
+    }
 }

@@ -119,4 +119,9 @@ public class BullCowProtocol implements Protocol {
         return getOkResponse("");
     }
 
+    public Response joinGame(String requestedData) {
+        service.joinGame(Game.getGameFromJSON(requestedData));
+        return getOkResponse("");
+    }
+
 }

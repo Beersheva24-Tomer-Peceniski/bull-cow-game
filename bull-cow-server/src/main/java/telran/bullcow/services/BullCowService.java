@@ -30,4 +30,6 @@ public interface BullCowService {
 
     Move makeMove(String sequence);
 
+    void joinGame(Game game);
+
 }

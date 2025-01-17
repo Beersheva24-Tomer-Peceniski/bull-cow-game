@@ -85,4 +85,9 @@ public class BullCowProxy implements BullCowService{
         netClient.sendAndReceive("logGame", String.valueOf(id));
     }
 
+    @Override
+    public void joinGame(Game game) {
+        netClient.sendAndReceive("joinGame", game.toString());
+    }
+
 }
